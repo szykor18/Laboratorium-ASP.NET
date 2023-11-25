@@ -14,13 +14,13 @@
             switch(Op)
             {
                 case Operators.MUL:
-                    return (double) (A * B);
+                    return (double)(A * B);
                 case Operators.DIV:
-                    return (double) (A / B);
+                    return (double)(A / B);
                 case Operators.ADD:
-                    return (double) (A + B);
+                    return (double)(A + B);
                 case Operators.SUB:
-                    return (double) (A - B);
+                    return (double)(A - B);
                 default: return double.NaN;
             }
         }

@@ -3,21 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laboratorium2.Controllers
 {
-    public class CalculatorController : Controller
+    public class BirthController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult Form()
+
+        [HttpPost]
+        public IActionResult Result(Birth model)
         {
-            return View();
-        }
-        public IActionResult Result(Calculator model)
-        {
-            if(!model.isValid())
+            if (!model.IsValid())
             {
-                return BadRequest();
+                return BadRequest("Invalid input data.");
             }
             return View(model);
         }
