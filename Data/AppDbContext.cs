@@ -9,7 +9,7 @@ namespace Data
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<EmployeeEntity> Employees { get; set; }
-        public DbSet<DepartmentEntity> Branches { get; set; }
+        public DbSet<BranchEntity> Branches { get; set; }
         private string DbPath { get; set; }
         public AppDbContext()
         {
@@ -98,7 +98,7 @@ namespace Data
                 });
 
             // Entity
-            modelBuilder.Entity<DepartmentEntity>()
+            modelBuilder.Entity<BranchEntity>()
             .OwnsOne(e => e.Address);
 
             modelBuilder.Entity<EmployeeEntity>()
@@ -106,42 +106,42 @@ namespace Data
                 .WithMany(o => o.Employees)
                 .HasForeignKey(e => e.BranchId);
 
-            modelBuilder.Entity<DepartmentEntity>().HasData(
-    new DepartmentEntity()
+            modelBuilder.Entity<BranchEntity>().HasData(
+    new BranchEntity()
     {
         BranchId = 1,
-        Title = "Firma XYZ",
+        Title = "Firma X",
     },
-    new DepartmentEntity()
+    new BranchEntity()
     {
         BranchId = 2,
-        Title = "ABC Sp. z o.o.",
+        Title = "XYZ Spółka z o.o.",
     },
-    new DepartmentEntity()
+    new BranchEntity()
     {
         BranchId = 3,
-        Title = "Inicjatywa Polska",
+        Title = "XYZ Spółka Akcyjna",
     },
-    new DepartmentEntity()
+    new BranchEntity()
     {
         BranchId = 4,
-        Title = "Tech Innovators",
+        Title = "XYZ Spółka komandytowa",
     },
-    new DepartmentEntity()
+    new BranchEntity()
     {
         BranchId = 5,
-        Title = "Nowoczesne Rozwiązania",
+        Title = "Firma Y",
     }
 );
 
-            modelBuilder.Entity<DepartmentEntity>()
+            modelBuilder.Entity<BranchEntity>()
                .OwnsOne(e => e.Address)
                .HasData(
                    new
                    {
                        BranchEntityBranchId = 1,
-                       City = "Warszawa",
-                       Street = "Marszałkowska",
+                       City = "Kraków",
+                       Street = "Korona",
                        Number = "123",
                        PostalCode = "00-015",
                        Region = "mazowieckie",
@@ -151,489 +151,131 @@ namespace Data
                    {
                        BranchEntityBranchId = 2,
                        City = "Kraków",
-                       Street = "Wawel",
-                       Number = "7",
-                       PostalCode = "31-001",
-                       Region = "małopolskie",
+                       Street = "Rynek Główny",
+                       Number = "3",
+                       PostalCode = "33-212",
+                       Region = "Małopolskie",
                        Country = "Polska"
                    },
                    new
                    {
                        BranchEntityBranchId = 3,
-                       City = "Gdańsk",
-                       Street = "Długa",
-                       Number = "22",
-                       PostalCode = "80-827",
-                       Region = "pomorskie",
+                       City = "Warszawa",
+                       Street = "Praska",
+                       Number = "13",
+                       PostalCode = "22-143",
+                       Region = "Mazowieckie",
                        Country = "Polska"
                    },
                    new
                    {
                        BranchEntityBranchId = 4,
-                       City = "Wrocław",
-                       Street = "Rynek",
+                       City = "Poznań",
+                       Street = "Błotna",
                        Number = "15",
-                       PostalCode = "50-101",
-                       Region = "dolnośląskie",
+                       PostalCode = "41-320",
+                       Region = "Wielkopolskie",
                        Country = "Polska"
                    },
                    new
                    {
                        BranchEntityBranchId = 5,
-                       City = "Poznań",
-                       Street = "Święty Marcin",
-                       Number = "80",
-                       PostalCode = "61-809",
-                       Region = "wielkopolskie",
+                       City = "Kraków",
+                       Street = "Topolowa",
+                       Number = "10",
+                       PostalCode = "32-040",
+                       Region = "Małopolskie",
                        Country = "Polska"
                    }
             );
 
             modelBuilder.Entity<EmployeeEntity>().HasData(
                 // Firma XYZ
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 1,
-                    Name = "Jan",
-                    LastName = "Kowalski",
-                    PESEL = "80010112345",
-                    Email = "jan.kowalski@firmaxyz.com",
-                    Phone = "123456789",
+                    Name = "Ewa",
+                    LastName = "Maj",
+                    PESEL = "76051112345",
+                    Email = "ewa.maj@firmax.pl",
+                    Phone = "500100200",
                     Position = 1,
                     BranchId = 1,
-                    DateOfEmployment = new DateTime(2010, 5, 15)
+                    DateOfEmployment = new DateTime(2020, 01, 10)
                 },
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 2,
-                    Name = "Anna",
-                    LastName = "Nowak",
-                    PESEL = "90020223456",
-                    Email = "anna.nowak@firmaxyz.com",
-                    Phone = "987654321",
+                    Name = "Marcin",
+                    LastName = "Zawadzki",
+                    PESEL = "85012223456",
+                    Email = "marcin.zawadzki@xyz.com",
+                    Phone = "600200300",
                     Position = 2,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2015, 8, 20),
-                    DateOfDismissal = new DateTime(2023, 12, 31)
+                    BranchId = 2,
+                    DateOfEmployment = new DateTime(2021, 02, 15),
+                    DateOfDismissal = new DateTime(2023, 11, 30)
                 },
-                // ABC Sp. z o.o.
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 3,
-                    Name = "Michał",
-                    LastName = "Wiśniewski",
-                    PESEL = "82030334567",
-                    Email = "michal.wisniewski@abc.com",
-                    Phone = "234567891",
-                    Position = 1,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2012, 3, 10)
+                    Name = "Anna",
+                    LastName = "Kowalczyk",
+                    PESEL = "94021567890",
+                    Email = "anna.kowalczyk@xyzsa.com",
+                    Phone = "700300400",
+                    Position = 3,
+                    BranchId = 3,
+                    DateOfEmployment = new DateTime(2022, 03, 20)
                 },
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 4,
-                    Name = "Katarzyna",
-                    LastName = "Lewandowska",
-                    PESEL = "85040445678",
-                    Email = "katarzyna.lewandowska@abc.com",
-                    Phone = "198765432",
-                    Position = 3,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2018, 6, 25),
-                    DateOfDismissal = new DateTime(2024, 2, 28)
+                    Name = "Krzysztof",
+                    LastName = "Borowski",
+                    PESEL = "87032145698",
+                    Email = "krzysztof.borowski@xyzsk.com",
+                    Phone = "800400500",
+                    Position = 4,
+                    BranchId = 4,
+                    DateOfEmployment = new DateTime(2020, 04, 01)
                 },
-                // Inicjatywa Polska
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 5,
-                    Name = "Piotr",
-                    LastName = "Duda",
-                    PESEL = "83050556789",
-                    Email = "piotr.duda@inicjatywa.pl",
-                    Phone = "543216789",
-                    Position = 1,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2013, 7, 5)
+                    Name = "Magdalena",
+                    LastName = "Sikorska",
+                    PESEL = "88040512345",
+                    Email = "magdalena.sikorska@firmax.pl",
+                    Phone = "900500600",
+                    Position = 5,
+                    BranchId = 5,
+                    DateOfEmployment = new DateTime(2021, 05, 20),
+                    DateOfDismissal = new DateTime(2023, 10, 10)
                 },
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 6,
-                    Name = "Alicja",
-                    LastName = "Jankowska",
-                    PESEL = "84060667890",
-                    Email = "alicja.jankowska@inicjatywa.pl",
-                    Phone = "876543210",
-                    Position = 4,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2019, 9, 30)
+                    Name = "Tomasz",
+                    LastName = "Nowak",
+                    PESEL = "92050867890",
+                    Email = "tomasz.nowak@xyz.com",
+                    Phone = "910610710",
+                    Position = 1,
+                    BranchId = 1,
+                    DateOfEmployment = new DateTime(2022, 06, 15)
                 },
-                // Tech Innovators
-                new EmployeeEntity()
+                new EmployeeEntity
                 {
                     EmployeeId = 7,
-                    Name = "Łukasz",
-                    LastName = "Kamiński",
-                    PESEL = "81070778901",
-                    Email = "lukasz.kaminski@techinnovators.com",
-                    Phone = "654321098",
-                    Position = 1,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2011, 11, 11)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 8,
-                    Name = "Magdalena",
-                    LastName = "Zając",
-                    PESEL = "83080889012",
-                    Email = "magdalena.zajac@techinnovators.com",
-                    Phone = "321098765",
-                    Position = 5,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2017, 12, 20),
-                    DateOfDismissal = new DateTime(2023, 6, 30)
-                },
-                // Nowoczesne Rozwiązania
-                new EmployeeEntity()
-                {
-                    EmployeeId = 9,
-                    Name = "Tomasz",
-                    LastName = "Piotrowski",
-                    PESEL = "84090990123",
-                    Email = "tomasz.piotrowski@nowoczesne.pl",
-                    Phone = "432109876",
-                    Position = 1,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2014, 10, 1)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 10,
-                    Name = "Monika",
-                    LastName = "Adamczyk",
-                    PESEL = "87010101234",
-                    Email = "monika.adamczyk@nowoczesne.pl",
-                    Phone = "210987654",
-                    Position = 6,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2020, 11, 15)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 11,
-                    Name = "Karolina",
-                    LastName = "Wójcik",
-                    PESEL = "88020212345",
-                    Email = "karolina.wojcik@firmaxyz.com",
-                    Phone = "345678912",
-                    Position = 2,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2016, 3, 18)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 12,
-                    Name = "Artur",
-                    LastName = "Kaczmarek",
-                    PESEL = "90030323456",
-                    Email = "artur.kaczmarek@firmaxyz.com",
-                    Phone = "456789123",
-                    Position = 4,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2017, 8, 22),
-                    DateOfDismissal = new DateTime(2022, 10, 31)
-                },
-                // ABC Sp. z o.o. (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 13,
-                    Name = "Karol",
-                    LastName = "Zieliński",
-                    PESEL = "89040434567",
-                    Email = "karol.zielinski@abc.com",
-                    Phone = "567891234",
-                    Position = 3,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2015, 4, 9)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 14,
-                    Name = "Natalia",
-                    LastName = "Walczak",
-                    PESEL = "91050545678",
-                    Email = "natalia.walczak@abc.com",
-                    Phone = "678912345",
-                    Position = 5,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2019, 9, 15)
-                },
-                // Inicjatywa Polska (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 15,
-                    Name = "Marcin",
-                    LastName = "Szymański",
-                    PESEL = "92060656789",
-                    Email = "marcin.szymanski@inicjatywa.pl",
-                    Phone = "789123456",
-                    Position = 2,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2016, 6, 28)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 16,
-                    Name = "Patrycja",
-                    LastName = "Dębska",
-                    PESEL = "93070767890",
-                    Email = "patrycja.debska@inicjatywa.pl",
-                    Phone = "891234567",
-                    Position = 4,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2020, 11, 10)
-                },
-                // Tech Innovators (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 17,
-                    Name = "Damian",
-                    LastName = "Pawlak",
-                    PESEL = "94080878901",
-                    Email = "damian.pawlak@techinnovators.com",
-                    Phone = "912345678",
-                    Position = 2,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2018, 12, 5)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 18,
-                    Name = "Aleksandra",
-                    LastName = "Mazur",
-                    PESEL = "95090989012",
-                    Email = "aleksandra.mazur@techinnovators.com",
-                    Phone = "123456789",
-                    Position = 3,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2021, 3, 20)
-                },
-                // Nowoczesne Rozwiązania (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 19,
-                    Name = "Rafał",
-                    LastName = "Witkowski",
-                    PESEL = "96101090123",
-                    Email = "rafal.witkowski@nowoczesne.pl",
-                    Phone = "234567891",
-                    Position = 2,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2018, 5, 7)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 20,
-                    Name = "Wiktoria",
-                    LastName = "Baran",
-                    PESEL = "97111101234",
-                    Email = "wiktoria.baran@nowoczesne.pl",
-                    Phone = "345678912",
-                    Position = 4,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2022, 8, 14)
-                },
-                // Firma XYZ (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 21,
-                    Name = "Marta",
-                    LastName = "Lis",
-                    PESEL = "98121212345",
-                    Email = "marta.lis@firmaxyz.com",
-                    Phone = "456789123",
-                    Position = 3,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2017, 10, 12)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 22,
-                    Name = "Paweł",
-                    LastName = "Olszewski",
-                    PESEL = "99010123456",
-                    Email = "pawel.olszewski@firmaxyz.com",
-                    Phone = "567891234",
-                    Position = 5,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2020, 2, 28)
-                },
-                // ABC Sp. z o.o. (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 23,
-                    Name = "Joanna",
-                    LastName = "Krawczyk",
-                    PESEL = "00020234567",
-                    Email = "joanna.krawczyk@abc.com",
-                    Phone = "678912345",
-                    Position = 4,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2018, 4, 3)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 24,
-                    Name = "Kamil",
-                    LastName = "Piotrowicz",
-                    PESEL = "01030345678",
-                    Email = "kamil.piotrowicz@abc.com",
-                    Phone = "789123456",
-                    Position = 6,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2021, 7, 20)
-                },
-                // Inicjatywa Polska (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 25,
-                    Name = "Agnieszka",
-                    LastName = "Jastrzębska",
-                    PESEL = "02040456789",
-                    Email = "agnieszka.jastrzebska@inicjatywa.pl",
-                    Phone = "891234567",
-                    Position = 3,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2017, 9, 8)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 26,
-                    Name = "Dawid",
-                    LastName = "Grabowski",
-                    PESEL = "03050567890",
-                    Email = "dawid.grabowski@inicjatywa.pl",
-                    Phone = "912345678",
-                    Position = 5,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2020, 11, 5)
-                },
-                // Tech Innovators (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 27,
-                    Name = "Klaudia",
-                    LastName = "Wojciechowska",
-                    PESEL = "04060678901",
-                    Email = "klaudia.wojciechowska@techinnovators.com",
-                    Phone = "123456789",
-                    Position = 4,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2019, 1, 15)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 28,
-                    Name = "Szymon",
-                    LastName = "Nowicki",
-                    PESEL = "05070789012",
-                    Email = "szymon.nowicki@techinnovators.com",
-                    Phone = "234567891",
-                    Position = 6,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2022, 4, 30)
-                },
-                // Nowoczesne Rozwiązania (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 29,
-                    Name = "Aleksander",
-                    LastName = "Kaczmarczyk",
-                    PESEL = "06080890123",
-                    Email = "aleksander.kaczmarczyk@nowoczesne.pl",
-                    Phone = "345678912",
-                    Position = 3,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2019, 6, 7)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 30,
-                    Name = "Kinga",
-                    LastName = "Grabowska",
-                    PESEL = "07090901234",
-                    Email = "kinga.grabowska@nowoczesne.pl",
-                    Phone = "456789123",
-                    Position = 5,
-                    BranchId = 5,
-                    DateOfEmployment = new DateTime(2022, 9, 14)
-                },
-                // Firma XYZ (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 31,
-                    Name = "Karol",
-                    LastName = "Nowak",
-                    PESEL = "08010112345",
-                    Email = "karol.nowak@firmaxyz.com",
-                    Phone = "567891234",
-                    Position = 3,
-                    BranchId = 1,
-                    DateOfEmployment = new DateTime(2018, 2, 15),
-                    DateOfDismissal = new DateTime(2024, 1, 31)
-                },
-                // ABC Sp. z o.o. (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 32,
-                    Name = "Zofia",
-                    LastName = "Kowalczyk",
-                    PESEL = "08121223456",
-                    Email = "zofia.kowalczyk@abc.com",
-                    Phone = "678912345",
-                    Position = 2,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2019, 10, 10)
-                },
-                new EmployeeEntity()
-                {
-                    EmployeeId = 33,
-                    Name = "Marek",
-                    LastName = "Lisowski",
-                    PESEL = "09030334567",
-                    Email = "marek.lisowski@abc.com",
-                    Phone = "789123456",
-                    Position = 5,
-                    BranchId = 2,
-                    DateOfEmployment = new DateTime(2021, 5, 20),
-                    DateOfDismissal = new DateTime(2024, 3, 15)
-                },
-                // Inicjatywa Polska (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 34,
                     Name = "Julia",
-                    LastName = "Krawiec",
-                    PESEL = "10040445678",
-                    Email = "julia.krawiec@inicjatywa.pl",
-                    Phone = "891234567",
-                    Position = 1,
-                    BranchId = 3,
-                    DateOfEmployment = new DateTime(2020, 7, 8),
-                    DateOfDismissal = new DateTime(2023, 6, 30)
-                },
-                // Tech Innovators (kontynuacja)
-                new EmployeeEntity()
-                {
-                    EmployeeId = 35,
-                    Name = "Krzysztof",
-                    LastName = "Zając",
-                    PESEL = "10150556789",
-                    Email = "krzysztof.zajac@techinnovators.com",
-                    Phone = "912345678",
+                    LastName = "Wójcik",
+                    PESEL = "93061178901",
+                    Email = "julia.wojcik@xyzsa.com",
+                    Phone = "920720820",
                     Position = 3,
-                    BranchId = 4,
-                    DateOfEmployment = new DateTime(2021, 2, 5)
+                    BranchId = 2,
+                    DateOfEmployment = new DateTime(2023, 07, 05)
                 }
             );
         }

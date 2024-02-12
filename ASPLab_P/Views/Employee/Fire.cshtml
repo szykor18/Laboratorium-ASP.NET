@@ -1,0 +1,85 @@
+﻿@model Employee
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <h1>Informacje o pracowniku</h1>
+    <p>Imię</p>
+    <h3>@Model.Name</h3>
+
+    <p>Nazwisko</p>
+    <h3>@Model.LastName</h3>
+
+    <p>PESEL</p>
+    <h3>@Model.PESEL</h3>
+
+    <p>Pozycja</p>
+    <h3>@Model.Position.GetDisplayName()</h3>
+
+    @{
+        var branchTitle = Model.Branches.FirstOrDefault(b => b.Value == Model.BranchId.ToString())?.Text;
+    }
+    <p>Oddział</p>
+    <h3>@branchTitle</h3>
+</div>
+<div>
+    <h1>Czy na pewno zwolnić powyższego pracownika?</h1>
+    <form asp-controller="Employee" asp-action="Fire" method="post">
+        <div style="display: none;">
+            <div><input asp-for="Id" /></div>
+            <div>
+                <label class="lab" asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div>
+                <label asp-for="LastName"></label>
+                <input class="form-control" asp-for="LastName" />
+                <span class="text-danger" asp-validation-for="LastName"></span>
+            </div>
+            <div>
+                <label asp-for="PESEL"></label>
+                <input class="form-control" asp-for="PESEL" />
+                <span class="text-danger" asp-validation-for="PESEL"></span>
+            </div>
+            <div>
+                <label asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Phone"></label>
+                <input class="form-control" asp-for="Phone" />
+                <span class="text-danger" asp-validation-for="Phone"></span>
+            </div>
+            <div>
+                <label asp-for="Position"></label>
+                <select class="form-control" asp-for="Position" asp-items="@Html.GetEnumSelectList<Position>()"></select>
+                <span class="text-danger" asp-validation-for="Position"></span>
+            </div>
+            <div>
+                <label asp-for="BranchId"></label>
+                <select class="form-control" asp-for="BranchId" asp-items="@Model.Branches"></select>
+                <span class="text-danger" asp-validation-for="BranchId"></span>
+            </div>
+            <div style="display: none;">
+                <label asp-for="DateOfEmployment"></label>
+                <input class="form-control" asp-for="DateOfEmployment" />
+                <span class="text-danger" asp-validation-for="DateOfEmployment"></span>
+            </div>
+            <div style="display: none;">
+                <label asp-for="DateOfDismissal"></label>
+                <input class="form-control" asp-for="DateOfDismissal" />
+                <span class="text-danger" asp-validation-for="DateOfDismissal"></span>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Potwierdź</button>
+        </div>
+        <div>
+            <button class="btn btn-secondary" asp-controller="Employee" asp-action="Index">Anuluj</button>
+        </div>
+    </form>
+</div>

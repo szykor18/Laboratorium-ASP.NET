@@ -1,0 +1,49 @@
+﻿@model Branch
+@{
+    ViewData["Title"] = "Dodawanie oddziału";
+}
+
+<h1>Dodawanie oddziału</h1>
+<form asp-controller="Branch" asp-action="Create" method="post">
+    <div>
+        <label asp-for="Title"></label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label asp-for="City"></label>
+        <input class="form-control" asp-for="City" />
+        <span class="text-danger" asp-validation-for="City"></span>
+    </div>
+    <div>
+        <label asp-for="Street"></label>
+        <input class="form-control" asp-for="Street" />
+        <span class="text-danger" asp-validation-for="Street"></span>
+    </div>
+    <div>
+        <label asp-for="Number"></label>
+        <input class="form-control" asp-for="Number" />
+        <span class="text-danger" asp-validation-for="Number"></span>
+    </div>
+    <div>
+        <label asp-for="PostalCode"></label>
+        <input class="form-control" asp-for="PostalCode" />
+        <span class="text-danger" asp-validation-for="PostalCode"></span>
+    </div>
+    <div>
+        <label asp-for="Region"></label>
+        <input class="form-control" asp-for="Region" />
+        <span class="text-danger" asp-validation-for="Region"></span>
+    </div>
+    <div>
+        <label asp-for="Country"></label>
+        <input class="form-control" asp-for="Country" />
+        <span class="text-danger" asp-validation-for="Country"></span>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Dodaj oddział</button>
+    </div>
+    <div>
+        <button class="btn btn-secondary" asp-controller="Branch" asp-action="Index">Anuluj</button>
+    </div>
+</form>

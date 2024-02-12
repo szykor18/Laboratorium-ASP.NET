@@ -39,7 +39,7 @@ namespace Data.Entities
         public int BranchId { get; set; }
 
         
-        public DepartmentEntity? Branch { get; set; }
+        public BranchEntity? Branch { get; set; }
 
         [Required]
         public DateTime DateOfEmployment { get; set; }

@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Strona główna";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center">
+                <h1 class="display-4">Aplikacja ułatwiająca zarządzanie pracownikami i oddziałami w firmie</h1>
+                <ul class="list-unstyled">
+                    <div>
+                        <li><a class="btn btn-primary" asp-controller="Employee" asp-action="Index">Lista pracowników</a></li>
+                    </div>
+                    <br />
+                    <div>
+                        <li><a class="btn btn-primary" asp-controller="Branch" asp-action="Index">Lista oddziałów</a></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

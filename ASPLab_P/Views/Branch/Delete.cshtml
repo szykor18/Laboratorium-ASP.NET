@@ -1,0 +1,29 @@
+﻿@model Branch
+@{
+    ViewData["Title"] = "Usuń oddział";
+}
+
+<div>
+    <h1>Informacje o oddziale</h1>
+    <p>Nazwa</p>
+    <h3>@Model.Title</h3>
+
+    <p>Miasto</p>
+    <h3>@Model.City</h3>
+
+    <p>Państwo</p>
+    <h3>@Model.Country</h3>
+</div>
+<div>
+    <h1>Czy na pewno usunąć powyższy oddział?</h1>
+    <h2>UWAGA! Usunięcie oddziału spowoduje usunięcie wszystkich pracowników powiąznych z tym oddziałem!</h2>
+    <form asp-controller="Branch" asp-action="Delete" method="post">
+        <input asp-for="BranchId" />
+        <div>
+            <button class="btn btn-primary" type="submit">Potwierdź</button>
+        </div>
+        <div>
+            <a class="btn btn-secondary" asp-controller="Branch" asp-action="Index">Anuluj</a>
+        </div>
+    </form>
+</div>
