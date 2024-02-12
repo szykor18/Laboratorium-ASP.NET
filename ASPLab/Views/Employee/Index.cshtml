@@ -1,0 +1,135 @@
+﻿@model List<Employee>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string status;
+}
+
+<a class="btn btn-primary" asp-controller="Employee" asp-action="Create">Dodaj kontakt</a>
+<h1>Pracownicy</h1>
+<div class="row mb-3">
+    <div class="col-md-2">
+        <label for="filterName" class="form-label">Imię:</label>
+        <input type="text" class="form-control" id="filterName">
+    </div>
+    <div class="col-md-2">
+        <label for="filterLastName" class="form-label">Nazwisko:</label>
+        <input type="text" class="form-control" id="filterLastName">
+    </div>
+    <div class="col-md-2">
+        <label for="filterPosition" class="form-label">Pozycja:</label>
+        <select class="form-select" id="filterPosition">
+            <option value="">-- Wybierz --</option>
+            @foreach (Role position in Enum.GetValues(typeof(Role)))
+            {
+                var displayName = position.GetDisplayName();
+                <option value="@displayName">@displayName</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="filterBranch" class="form-label">Oddział:</label>
+        <select class="form-select" id="filterBranch">
+            <option value="">-- Wybierz --</option>
+            @foreach (var branch in ViewBag.Branches)
+            {
+                <option value="@branch.Value">@branch.Value</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="filterStatus" class="form-label">Stan:</label>
+        <select class="form-select" id="filterStatus">
+            <option value="">-- Wybierz --</option>
+            <option value="Aktywny">Aktywny</option>
+            <option value="Wypowiedzenie">Wypowiedzenie</option>
+            <option value="Zwolniony">Zwolniony</option>
+        </select>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].BranchId)
+            </th>
+            <th>
+                Stan
+            </th>
+            <th>
+                Akcje
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.Position.GetDisplayName()
+                </td>
+                <td>
+                    @(ViewBag.Branches[item.BranchId])
+                </td>
+                <td>
+                    @{
+                        status = item.DateOfDismissal == null ? "Aktywny" : (item.DateOfDismissal > DateTime.Now ? "Wypowiedzenie" : "Zwolniony");
+                    }
+                    @status
+                </td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                    <a asp-controller="Employee" asp-action="Detalis" asp-route-id="@item.Id">Szczegóły</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts { 
+    <script>
+        function filter() {
+            var filterName = $("#filterName").val().toLowerCase();
+            var filterLastName = $("#filterLastName").val().toLowerCase();
+            var filterPosition = $("#filterPosition").val();
+            var filterBranch = $("#filterBranch").val();
+            var filterStatus = $("#filterStatus").val();
+
+            $("tbody tr").filter(function () {
+                var name = $(this).find("td:nth-child(1)").text().toLowerCase();
+                var lastName = $(this).find("td:nth-child(2)").text().toLowerCase();
+                var position = $(this).find("td:nth-child(3)").text();
+                var branch = $(this).find("td:nth-child(4)").text();
+                var status = $(this).find("td:nth-child(5)").text();
+
+                var nameMatch = name.indexOf(filterName) > -1 || filterName === "";
+                var lastNameMatch = lastName.indexOf(filterLastName) > -1 || filterLastName === "";
+                var positionMatch = position.indexOf(filterPosition) > -1 || filterPosition === "";
+                var branchMatch = branch.indexOf(filterBranch) > -1 || filterBranch === "";
+                var statusMatch = status.indexOf(filterStatus) > -1 || filterStatus === "";
+
+                $(this).toggle(nameMatch && lastNameMatch && positionMatch && branchMatch && statusMatch);
+            });
+        }
+        $(document).ready(function () {
+            $("#filterName, #filterLastName").keyup(filter);
+            $("#filterPosition, #filterBranch, #filterStatus").change(filter);
+        });
+    </script>
+}

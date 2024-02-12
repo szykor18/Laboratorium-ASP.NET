@@ -1,0 +1,41 @@
+﻿@model Employee
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string DateOfDismissal = Model.DateOfDismissal == null ? "Brak - Pracownik aktywny" : Model.DateOfDismissal.Value.Date.ToString("dd/MM/yyyy");
+    string branchTitle = Model.Branches.FirstOrDefault(b => b.Value == Model.BranchId.ToString())?.Text;
+    string branchId = Model.Branches.FirstOrDefault(b => b.Value == Model.BranchId.ToString())?.Value;
+}
+<h1>Informacje o pracowniku</h1>
+
+<p>Imię</p>
+<h3>@Model.Name</h3>
+
+<p>Nazwisko</p>
+<h3>@Model.LastName</h3>
+
+<p>PESEL</p>
+<h3>@Model.PESEL</h3>
+
+<p>E-mail</p>
+<h3>@Model.Email</h3>
+
+<p>Telefon</p>
+<h3>@Model.Phone</h3>
+
+<p>Pozycja</p>
+<h3>@Model.Position.GetDisplayName()</h3>
+
+<p>Oddział</p>
+<h3>@branchTitle</h3>
+<a class="btn btn-secondary" asp-controller="Branch" asp-action="Detalis" asp-route-id="@branchId">Szczegóły oddziału</a>
+
+<p>Data zatrudnienia</p>
+<h3>@Model.DateOfEmployment.Date.ToString("dd/MM/yyyy")</h3>
+
+<p>Data zwolnienia</p>
+<h3>@DateOfDismissal</h3>
+
+<a class="btn btn-secondary" asp-controller="Employee" asp-action="Edit" asp-route-id="@Model.Id">Edycja</a>
+<a class="btn btn-secondary" asp-controller="Employee" asp-action="Index">Powrót</a>

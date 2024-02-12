@@ -1,0 +1,104 @@
+﻿@model Employee
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Edycja kontaktu</h1>
+<form asp-controller="Employee" asp-action="Edit" method="post">
+    <div>
+        <a class="btn btn-secondary" asp-controller="Employee" asp-action="AdvancedEdit" asp-route-id="@Model.Id">Zaawansowana edycja</a>
+    </div>
+    <div><input asp-for="Id" /></div>
+    <div>
+        <label class="lab" asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="LastName"></label>
+        <input class="form-control" asp-for="LastName" />
+        <span class="text-danger" asp-validation-for="LastName"></span>
+    </div>
+    <div>
+        <label asp-for="PESEL"></label>
+        <input class="form-control" asp-for="PESEL" />
+        <span class="text-danger" asp-validation-for="PESEL"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" />
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Phone"></label>
+        <input class="form-control" asp-for="Phone" />
+        <span class="text-danger" asp-validation-for="Phone"></span>
+    </div>
+    <div>
+        <label asp-for="Position"></label>
+        <select class="form-control" asp-for="Position" asp-items="@Html.GetEnumSelectList<Role>()"></select>
+        <span class="text-danger" asp-validation-for="Position"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <input class="form-control" type="text" name="filter" id="filter" placeholder="Wyszukaj oddział" />
+        <select class="form-control" asp-for="BranchId" asp-items="@Model.Branches"></select>
+    </div>
+    <div style="display: none;">
+        <label asp-for="DateOfEmployment"></label>
+        <input class="form-control" asp-for="DateOfEmployment" />
+        <span class="text-danger" asp-validation-for="DateOfEmployment"></span>
+    </div>
+    <div style="display: none;">
+        <label asp-for="DateOfDismissal"></label>
+        <input class="form-control" asp-for="DateOfDismissal" />
+        <span class="text-danger" asp-validation-for="DateOfDismissal"></span>
+    </div>
+
+    <div>
+        <div>
+            <button class="btn btn-primary" type="submit">Zapisz pracownika</button>
+        </div>
+        <div>
+            <a class="btn btn-primary" asp-controller="Employee" asp-action="Fire" asp-route-id="@Model.Id">Zwolnij pracownika</a>
+        </div>
+        <div>
+            <button class="btn btn-secondary" asp-controller="Employee" asp-action="Index">Anuluj</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function populateBranches() {
+            let select = document.getElementById("BranchId");
+            let filter = document.getElementById("filter");
+
+            fetch(`/api/branches?title=${filter.value}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    throw "No OK, actual status " + response.status;
+                })
+                .then(json => {
+                    select.innerHTML = '';
+                    for (let item of json) {
+                        let option = document.createElement('option');
+                        option.setAttribute('value', item.branchId);
+                        option.innerText = item.title;
+                        select.appendChild(option);
+                    }
+                })
+                .catch(e => {
+                    console.log('Cant get data from api', e);
+                });
+        }
+
+        let filter = document.getElementById("filter");
+        filter.onkeyup = function (e) {
+            populateBranches();
+        };
+    </script>
+}

@@ -1,0 +1,96 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Informacje o oddziale";
+}
+
+<h1>Informacje o oddziale</h1>
+
+<div>
+    <a class="btn btn-secondary" asp-controller="Branch" asp-action="Edit" asp-route-id="@Model.BranchId">Edycja</a>
+    <a class="btn btn-secondary" asp-controller="Branch" asp-action="Index">Powrót</a>
+</div>
+
+<p>Nazwa oddziału:</p>
+<h3>@Model.Title</h3>
+
+<p>Liczba pracowników:</p>
+<h3 id="empl"></h3>
+<a class="btn btn-secondary sbut1" id="butemployees">Wyświetl pracowników</a>
+<a class="btn btn-secondary sbut2" id="butadress">Wyświetl adres</a>
+<div class="sdiv2">
+    <p>Lista pracowników</p>
+    <ul id="employeesList"></ul>
+</div>
+<div class="sdiv1">
+    <p>Adres:</p>
+    <ul>
+        <li>Miasto: @Model.City</li>
+        <li>Ulica: @Model.Street</li>
+        <li>Numer: @Model.Number</li>
+        <li>Kod pocztowy: @Model.PostalCode</li>
+        <li>Region: @Model.Region</li>
+        <li>Państwo: @Model.Country</li>
+    </ul>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        async function countEmployeesInBranch(branchId) {
+            const response = await fetch(`/api/employees?branchId=${branchId}`);
+            const data = await response.json();
+            const count = data.length;
+            document.getElementById("empl").innerHTML = `${count}`;
+
+            const employeesList = document.getElementById("employeesList");
+            employeesList.innerHTML = "";
+
+            const positionDisplayNames = {
+                1: '@((Role.TeamLeader).GetDisplayName())',
+                2: '@((Role.SupportStaff).GetDisplayName())',
+                3: '@((Role.Intern).GetDisplayName())',
+                4: '@((Role.AssociateMember).GetDisplayName())',
+                5: '@((Role.CoreMember).GetDisplayName())'
+            };
+
+            data.forEach(employee => {
+                const li = document.createElement("li");
+                let stan;
+                if (employee.dateOfDismissal === null) {
+                    stan = "Aktywny";
+                } else {
+                    const dismissalDate = new Date(employee.dateOfDismissal);
+                    stan = dismissalDate > new Date() ? "Wypowiedzenie" : "Zwolniony";
+                }
+                const positionDisplayName = positionDisplayNames[employee.position];
+                li.innerHTML = `${employee.name} ${employee.lastName}, ${positionDisplayName}, ${stan} <a href="/Employee/Detalis/${employee.employeeId}">Szczegóły</a>`;
+                employeesList.appendChild(li);
+            });
+        }
+
+        window.onload = function () {
+            countEmployeesInBranch(@Model.BranchId);
+
+            document.querySelector(".sdiv1").style.display = "inline";
+            document.querySelector(".sdiv2").style.display = "none";
+            document.querySelector("#butemployees").style.display = "inline";
+            document.querySelector("#butadress").style.display = "none";
+
+            document.getElementById("butemployees").addEventListener("click", function () {
+                document.querySelector(".sdiv1").style.display = "none";
+                document.querySelector(".sdiv2").style.display = "inline";
+                document.querySelector("#butemployees").style.display = "none";
+                document.querySelector("#butadress").style.display = "inline";
+            });
+
+            document.getElementById("butadress").addEventListener("click", function () {
+                document.querySelector(".sdiv1").style.display = "inline";
+                document.querySelector(".sdiv2").style.display = "none";
+                document.querySelector("#butemployees").style.display = "inline";
+                document.querySelector("#butadress").style.display = "none";
+            });
+        };
+    </script>
+}
