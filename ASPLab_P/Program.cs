@@ -2,7 +2,6 @@ using Data;
 using ASPLab.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
