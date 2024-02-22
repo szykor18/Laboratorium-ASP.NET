@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-ASPLab_P-b98bf1a2-95bf-44fc-bf07-cfbb70b1f4b6</UserSecretsId>
+    <UserSecretsId>aspnet-ASPLab-b98bf1a2-95bf-44fc-bf07-cfbb70b1f4b6</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

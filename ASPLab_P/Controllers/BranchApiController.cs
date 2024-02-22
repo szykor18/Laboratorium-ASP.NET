@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ASPLab_P.Controllers
+namespace ASPLab.Controllers
 {
     [Route("api/branches")]
     [ApiController]

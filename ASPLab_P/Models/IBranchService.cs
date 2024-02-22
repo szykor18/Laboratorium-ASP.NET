@@ -1,7 +1,7 @@
 ﻿using Data.Entities;
 using System.Collections.Generic;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public interface IBranchService
     {

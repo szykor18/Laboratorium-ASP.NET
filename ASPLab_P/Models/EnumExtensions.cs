@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     static public class EnumExtensions
     {

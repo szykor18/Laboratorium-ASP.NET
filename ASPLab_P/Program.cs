@@ -1,5 +1,5 @@
 using Data;
-using ASPLab_P.Models;
+using ASPLab.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;

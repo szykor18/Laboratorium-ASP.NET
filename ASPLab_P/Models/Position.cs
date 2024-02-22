@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public enum Position
     {

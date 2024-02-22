@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "ASPLab_P": {
+    "ASPLab": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

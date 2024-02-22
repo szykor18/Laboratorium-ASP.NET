@@ -1,8 +1,8 @@
-﻿using ASPLab_P.Models;
+﻿using ASPLab.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASPLab_P.Controllers
+namespace ASPLab.Controllers
 {
     [Authorize]
     public class BranchController : Controller

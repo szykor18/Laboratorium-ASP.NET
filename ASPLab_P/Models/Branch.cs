@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public class Branch
     {

@@ -1,9 +1,9 @@
-﻿using ASPLab_P.Mappers;
+﻿using ASPLab.Mappers;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public class EFEmployeeService : IEmployeeService
     {

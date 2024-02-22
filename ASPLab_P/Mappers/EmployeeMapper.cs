@@ -1,7 +1,7 @@
-﻿using ASPLab_P.Models;
+﻿using ASPLab.Models;
 using Data.Entities;
 
-namespace ASPLab_P.Mappers
+namespace ASPLab.Mappers
 {
     public class EmployeeMapper
     {

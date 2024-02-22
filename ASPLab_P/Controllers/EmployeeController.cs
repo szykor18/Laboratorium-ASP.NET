@@ -1,9 +1,9 @@
-﻿using ASPLab_P.Models;
+﻿using ASPLab.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ASPLab_P.Controllers
+namespace ASPLab.Controllers
 {
     [Authorize]
     public class EmployeeController : Controller

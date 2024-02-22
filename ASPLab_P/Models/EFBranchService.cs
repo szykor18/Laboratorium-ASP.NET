@@ -1,10 +1,10 @@
-﻿using ASPLab_P.Mappers;
+﻿using ASPLab.Mappers;
 using Data;
 using Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public class EFBranchService : IBranchService
     {

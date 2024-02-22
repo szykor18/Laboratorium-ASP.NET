@@ -1,8 +1,8 @@
-﻿using ASPLab_P.Models;
+﻿using ASPLab.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ASPLab_P.Controllers
+namespace ASPLab.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using Data.Entities;
 
-namespace ASPLab_P.Models
+namespace ASPLab.Models
 {
     public interface IEmployeeService
     {

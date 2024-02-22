@@ -1,7 +1,7 @@
 ﻿using Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASPLab_P.Controllers
+namespace ASPLab.Controllers
 {
     [Route("api/employees")]
     [ApiController]
